@@ -1,9 +1,9 @@
-# Use the official Ubuntu 22.04 image and install necessary dependencies
+# sudo docker build -t litekite2
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies and Python 3.10
+# Setup system dependencies to tie in with python virtual environment
 RUN apt-get update && apt-get install -y \
     software-properties-common \
     build-essential wget nano cmake ninja-build \
@@ -45,6 +45,7 @@ WORKDIR /src/app
 COPY . /src/app
 
 # Create a Python 3.10 virtual environment with access to system-wide packages
+# ubuntu:22.04 comes standard with python 3.10
 RUN python3 -m venv /src/app/venv --system-site-packages
 
 # Activate the virtual environment and upgrade pip
@@ -73,6 +74,7 @@ RUN wget https://raw.githubusercontent.com/airockchip/rknn-toolkit2/master/rknn-
 ENV VIRTUAL_ENV=/src/app/venv
 ENV PATH="/src/app/venv/bin:$PATH"
 
+# Copy in verification script
 COPY verify_litekit2.sh verify_litekit2.sh
 
 # Set execute permissions on the script
