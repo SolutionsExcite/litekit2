@@ -9,6 +9,11 @@ chmod +x run.sh
 ./run.sh
 
 
+sudo docker run -it --rm --privileged litekit2
+podman run -it --rm --privileged litekit2
+
+
+
 Expected results when ran:
 --> Load RKNN model
 done
